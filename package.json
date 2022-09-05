@@ -1,0 +1,19 @@
+{
+  "name": "load-testing",
+  "version": "1.0.0",
+  "description": "Terum load test",
+  "main": "index.js",
+  "scripts": {
+    "refresh": "nodemon index.js",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
