@@ -30,7 +30,7 @@ const userObject = {
 const insert = async (connection, index) => {
 
     //As username and email is unique, in our case index every time starts from 0 so appended random number.
-    const randomDigits = Math.random().toFixed(2) * 100000 + index;
+    const randomDigits = Math.random().toFixed(2) * 10000000 + index * Math.random();
     let email = "LOAD_" + randomDigits + "_" + userObject.email;
     let username = "LOAD_" + randomDigits + "_" + userObject.username;
     let sqlQuery = `INSERT INTO users_user ( password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined, address, bio, city, country, gender, state, zipcode, profile_photo, is_flagged, terrcoin, initialized, is_push_notification_enabled, curr_week_terrcoin, prev_week_terrcoin) VALUES ('${userObject.password}', '${userObject.last_login}', '${userObject.is_superuser}', '${username}', '${userObject.first_name}', '${userObject.last_name}', '${email}', '1', '1','${userObject.date_joined}', '${userObject.address}', '${userObject.bio}', '${userObject.city}',  '${userObject.address}',  '${userObject.gender}',  '${userObject.state}',  '${userObject.zipcode}',  '${userObject.profile_photo}',  '${userObject.is_flagged}',  '${userObject.terrcoin}',  '${userObject.initialized}',  '${userObject.is_push_notification_enabled}', '${userObject.curr_week_terrcoin}', '${userObject.prev_week_terrcoin}')`;
