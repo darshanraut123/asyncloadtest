@@ -8,7 +8,7 @@ const terumObject = {
     'audience': 'everyone',
     'goal': 'share_knowledge',
     'description': 'San Francisco’s Coit Tower hike is a beautiful one with stairs through secret gardens of the city!',
-    'user_id': 37 ,  
+    'user_id': 1 ,  
     'status': 'ACTIVE',
     'expired_at': '2022-08-27 22:48:55.149519',
     'start_latitude': '23.3635810000',
@@ -31,6 +31,22 @@ const insert = async (connection, index) => {
     try {
         console.log('before insert', index);
         let results = await connection.query(sqlQuery);
+        if(results[0]?.insertId){
+            
+            //Add new media ie upload a single image
+            sqlQuery = "INSERT INTO social_media (`created_at`, `updated_at`, `file`, `media_type`, `description`, `user_id`, `thumbnail`, `thumbnail_created`) VALUES ('2022-07-29 09:46:09.647584', '2022-07-29 09:46:09.647628', '03998795-717B-4EF3-932E-8C21737EF99A.png', 'image', 'challenge-images', '1', '', '0')"
+            let uploadResult = await connection.query(sqlQuery);
+            
+            //Link that image to terum
+            sqlQuery = `INSERT INTO social_terum_medias (terum_id, media_id) VALUES (${results[0].insertId}, ${uploadResult[0].insertId})`
+            await connection.query(sqlQuery);
+
+            //Link that category to terum
+            sqlQuery = `INSERT INTO social_terum_categories (terum_id, category_id) VALUES (${results[0].insertId}, '3')`
+            await connection.query(sqlQuery);
+        }
+       
+
         console.log('after insert', index);
         logger.log(results);
     } catch (err) {
